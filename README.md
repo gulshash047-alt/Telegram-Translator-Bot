@@ -33,11 +33,10 @@
 
 # 7. Скриншоты интерфейса
 Скриншоты, демонстрирующие успешный запуск бота, выбор языка через интерактивные кнопки, процесс автоматического перевода сообщений и вывод истории запросов из базы данных, сохранены в папке проекта:
-![istory.PNG](screenshots/istory.PNG)
-![kazz_trans.PNG](screenshots/kazz%20trans.PNG)
-![Puss_trans.PNG](screenshots/Puss%20trans.PNG)
 ![start.pn.PNG](screenshots/start.pn.PNG)
-![sеlеct_lanг.PNG](screenshots/s%D0%B5l%D0%B5ct%20lan%D0%B3.PNG)
-![sеttinг.PNG](screenshots/s%D0%B5ttin%D0%B3.PNG)
-
+![sеlеct lanг.PNG](screenshots/select_lang.PNG)
+![sеttinг.PNG](screenshots/settinr.PNG)
+![kazz trans.PNG](screenshots/kazz_trans.PNG)
+![Puss trans.PNG](screenshots/Puss_trans.PNG)
+![istory.PNG](screenshots/istory.PNG)
 
