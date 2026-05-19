@@ -20,11 +20,11 @@ LANGUAGES = {
 def send_welcome(message):
     user_name = message.from_user.first_name
     welcome_text = (
-        f"Сәлем, {user_name}! 👋\n"
-        f"Мен — Аудармашы ботпын. Маған кез келген мәтінді жіберсеңіз, "
-        f"оны сіз таңдаған тілге аударып беремін.\n\n"
-        f"⚙️ Қазіргі таңдалған аудару тілі: *{db.get_user_lang(message.chat.id).upper()}*\n\n"
-        f"Тілді өзгерткіңіз келсе, /settings командасын басыңыз немесе мәтін жібере беріңіз."
+        f"Hello, {user_name}! 👋\n"
+        f"I am a Translator Bot. Send me any text, and "
+        f"I will translate it into your chosen language.\n\n"
+        f"⚙️ Current target language: *{db.get_user_lang(message.chat.id).upper()}*\n\n"
+        f"If you want to change the language, use the /languages command or just send a text."
     )
     bot.send_message(message.chat.id, welcome_text, parse_mode="Markdown")
 
@@ -32,32 +32,31 @@ def send_welcome(message):
 @bot.message_handler(commands=['help'])
 def send_help(message):
     help_text = (
-        "📖 *Ботты қолдану нұсқаулығы:*\n\n"
-        "1. Маған жай ғана сөз немесе сөйлем жіберіңіз — мен оны сіз таңдаған тілге аударамын.\n"
-        "2. /settings — Аударылатын тілді таңдау.\n"
-        "3. /history — Соңғы 5 аударма тарихын көру.\n"
-        "4. /languages — Қолжетімді тілдер тізімі."
+        "📖 *Bot Usage Guide:*\n\n"
+        "1. Just send me any word or sentence — I will translate it into your target language.\n"
+        "2. /languages — Choose target translation language.\n"
+        "3. /history — View your last 5 translations."
     )
     bot.send_message(message.chat.id, help_text, parse_mode="Markdown")
 
 
-@bot.message_handler(commands=['settings', 'languages'])
+@bot.message_handler(commands=['languages'])
 def change_language(message):
     markup = types.ReplyKeyboardMarkup(row_width=2, resize_keyboard=True)
     buttons = [types.KeyboardButton(lang) for lang in LANGUAGES.keys()]
     markup.add(*buttons)
-    bot.send_message(message.chat.id, "Төмендегі батырмалардан аударғыңыз келетін тілді таңдаңыз:", reply_markup=markup)
+    bot.send_message(message.chat.id, "Please select your target translation language from the buttons below:", reply_markup=markup)
 
 
 @bot.message_handler(commands=['history'])
 def show_history(message):
     history = db.get_history(message.chat.id)
     if not history:
-        bot.send_message(message.chat.id, "Сізде әлі аударма тарихы жоқ. 🤷‍♂️")
+        bot.send_message(message.chat.id, "Your translation history is empty. 🤷‍♂️")
         return
-    res = "📜 *Соңғы 5 аудармаңыз:*\n\n"
+    res = "📜 *Your last 5 translations:*\n\n"
     for orig, trans in history:
-        res += f"🔹 *Түпнұсқа:* {orig}\n🔸 *Аударма:* {trans}\n\n"
+        res += f"🔹 *Original:* {orig}\n🔸 *Translation:* {trans}\n\n"
     bot.send_message(message.chat.id, res, parse_mode="Markdown")
 
 
@@ -66,19 +65,19 @@ def handle_text(message):
     text = message.text.strip()
 
     if not text:
-        bot.send_message(message.chat.id, "❌ Қате: Мәтін бос болмауы керек!")
+        bot.send_message(message.chat.id, "❌ Error: Text cannot be empty!")
         return
 
     if text in LANGUAGES:
         lang_code = LANGUAGES[text]
         db.set_user_lang(message.chat.id, lang_code)
         remove_markup = types.ReplyKeyboardRemove()
-        bot.send_message(message.chat.id, f"✅ Аудару тілі сәтті өзгертілді: *{text}*", reply_markup=remove_markup,
+        bot.send_message(message.chat.id, f"✅ Language successfully changed to: *{text}*", reply_markup=remove_markup,
                          parse_mode="Markdown")
         return
 
     if text.startswith('/'):
-        bot.send_message(message.chat.id, "❌ Белгісіз команда. Көмек қажет болса /help басыңыз.")
+        bot.send_message(message.chat.id, "❌ Unknown command. If you need help, press /help.")
         return
 
     target_lang = db.get_user_lang(message.chat.id)
@@ -87,10 +86,10 @@ def handle_text(message):
         bot.send_chat_action(message.chat.id, 'typing')
         translated = GoogleTranslator(source='auto', target=target_lang).translate(text)
         db.add_history(message.chat.id, text, translated)
-        response = f"✨ *Аударма ({target_lang.upper()}):*\n\n{translated}"
+        response = f"✨ *Translation ({target_lang.upper()}):*\n\n{translated}"
         bot.send_message(message.chat.id, response, parse_mode="Markdown")
     except Exception as e:
-        bot.send_message(message.chat.id, "❌ Аударма кезінде қате шықты. Қайта көріңіз.")
+        bot.send_message(message.chat.id, "❌ An error occurred during translation. Please try again.")
 
 
 if __name__ == '__main__':
