@@ -1,42 +1,41 @@
-# 1. Название проекта
-Чат-бот перевода — простой перевод через API.
+# 1. Project Name
+Translator Bot — a Telegram chat bot for automatic text translation via API with history storage.
 
-# 2. Описание проекта
-Данный чат-бот разработан в рамках финального проекта по дисциплине «Программирование на Python». Он предназначен для автоматического перевода текстовых сообщений пользователей на несколько популярных языков. Бот автоматически определяет исходный язык введенного текста, переводит его на выбранный пользователем язык через внешнее API, а также сохраняет историю запросов в локальную базу данных. Бот поддерживает полноценный интерактивный диалог и устойчив к различным ошибкам ввода.
+# 2. Project Description
+This chat bot was developed as a final project for the "Python Programming" course. It is designed for rapid automatic translation of user text messages into several popular languages. The bot automatically detects the source language of the input text, translates it into the chosen target language using an external API, and saves the query history to a local database. The bot supports a full interactive dialogue and is resilient to various input errors.
 
-# 3. Используемые технологии
-* Язык программирования: Python 3 
-* Интерфейс: pyTelegramBotAPI 
-* Интеграция API: deep-translator
-* Хранение данных: SQLite3
+# 3. Technologies Used
+* **Programming Language:** Python 3.10+
+* **Libraries:** pyTelegramBotAPI, deep-translator
+* **Database:** SQLite3
+* **Tools:** PyCharm, GitHub
 
-# 4. Инструкция по установке
-1. Скачайте архив с проектом или клонируйте репозиторий на свой компьютер.
-2. Откройте папку проекта в среде разработки PyCharm.
-3. Убедитесь, что виртуальное окружение активировано (в левом нижнем углу терминала PyCharm должно быть написано (.venv)).
-4. Установите все необходимые зависимости из файла requirements.txt, выполнив в терминале команду:
-   pip install -r requirements.txt
+# 4. Installation Instructions
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/gulshash047-alt/Telegram-Translator-Bot.git
+2. Open the project folder in PyCharm or any other code editor.
+3. Install the required dependencies from the requirements.txt file:
+pip install -r requirements.txt
 
-# 5. Инструкция по запуску
-1. Откройте файл bot.py.
-2. В переменную TOKEN вставьте ваш уникальный API-токен бота, полученный от @BotFather.
-3. Запустите проект через терминал PyCharm с помощью команды:
-   python bot.py
-4. После того как в консоли отобразится сообщение о том, что база данных инициализирована и бот запущен, откройте Telegram, найдите своего бота по его имени пользователя и нажмите кнопку /start.
+# 5. Deployment and Launch Instructions
+1. Insert your bot token obtained from @BotFather into the TOKEN variable in the bot.py file.
+2. Run the bot using the terminal command:
+python bot.py
+3. Open Telegram and send the /start command.
 
-# 6. Примеры работы чат-бота
-* /start — Бот отправляет приветственное сообщение, определяет имя пользователя и выводит текущий активный язык перевода.
-* /help — Выводится подробная инструкция по использованию бота и список доступных команд.
-* /settings или /languages — Бот отправляет удобное встроенное меню в виде кнопок (ReplyKeyboardMarkup) для выбора языка.
-* /history — Бот обращается к базе данных SQLite и выводит последние 5 выполненных переводов данного пользователя.
-* Отправка обычного текста — Бот принимает любой текст, отправленный пользователем, автоматически распознает его язык и переводит на выбранный в настройках язык, после чего заносит лог в историю.
+# 6. Examples of Chat Bot Operation
+/start — Greeting, user initialization, displaying the current target language, and opening the command menu.
+/help — Displays a detailed user guide with rules: instructions on sending words or sentences for translation, changing settings, viewing the last 5 translations from history, and checking available languages.
+/languages — Displaying interactive Reply buttons right below the input field to select the target translation language (English, Russian, Kazakh, Turkish, German, French).
+/history — Accessing the SQLite database to fetch and display the last 5 translations performed by the user.
+Sending regular text — The bot accepts any text message, automatically detects its source language, immediately provides the translation into the chosen language via API, and logs the entry into the database history.
 
-# 7. Скриншоты интерфейса
-Скриншоты, демонстрирующие успешный запуск бота, выбор языка через интерактивные кнопки, процесс автоматического перевода сообщений и вывод истории запросов из базы данных, сохранены в папке проекта:
-![start.pn.PNG](screenshots/start.pn.PNG)
-![sеlеct lanг.PNG](screenshots/select_lang.PNG)
-![sеttinг.PNG](screenshots/settinr.PNG)
-![kazz trans.PNG](screenshots/kazz_trans.PNG)
-![Puss trans.PNG](screenshots/Puss_trans.PNG)
-![istory.PNG](screenshots/istory.PNG)
-
+# 7. Interface Screenshots
+All screenshots of the bot interface are saved in the root folder of the repository:
+![start..PNG](screenshots/start..PNG) — Bot launch, greeting message, and main menu. 
+![lanгг..PNG](screenshots/lan%D0%B3%D0%B3..PNG) — Interactive language selection buttons interface.
+![turkisн transl.PNG](screenshots/turkis%D0%BD%20transl.PNG) — Successful text translation into Turkish.
+![немис transl.PNG](screenshots/%D0%BD%D0%B5%D0%BC%D0%B8%D1%81%20transl.PNG) — Successful text translation into German.  
+![Нistory.PNG](screenshots/%D0%9Distory.PNG) — Fetching and displaying translation history from the database.
+![Неlp.PNG](screenshots/%D0%9D%D0%B5lp.PNG) — Displaying the user guide and command list (Help).
